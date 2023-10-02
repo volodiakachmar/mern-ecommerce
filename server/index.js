@@ -14,8 +14,11 @@ const helmet = require('helmet');
 // и многое другое.
 
 const keys = require('./config/keys');
-const routes = require('./routes');
+const routes = require('./routes');  // Маршруты определяют, как ваш сервер будет обрабатывать различные HTTP-запросы (например, GET, POST, PUT, DELETE).
 const socket = require('./socket');
+// Здесь импортируется файл, который, вероятно, настраивает сокет-сервер для обработки WebSocket-соединений. WebSockets используются для 
+// двустороннего обмена данными между сервером и клиентом в режиме реального времени.
+
 const setupDB = require('./utils/db');
 
 const { port } = keys;
@@ -23,6 +26,8 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// Эти строки настраивают Express.js для обработки запросов с данными в формате URL-encoded и JSON. Это позволяет вашему серверу читать данные, 
+// отправленные клиентами.
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -33,6 +38,8 @@ app.use(cors());
 
 setupDB();
 require('./config/passport')(app);
+// Подключается конфигурация аутентификации (вероятно, с использованием паспорта) и передается объект приложения app, чтобы настроить аутентификацию.
+
 app.use(routes);
 
 const server = app.listen(port, () => {
@@ -43,4 +50,4 @@ const server = app.listen(port, () => {
   );
 });
 
-socket(server);
+socket(server); // Вероятно, это настройка сокет-сервера, передавая ему экземпляр вашего HTTP-сервера (server) для обработки WebSocket-соединений.
