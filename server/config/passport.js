@@ -1,16 +1,16 @@
-const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
+const passport = require('passport'); //  Импорт модуля Passport.js, который предоставляет функциональность для аутентификации и авторизации.
+const JwtStrategy = require('passport-jwt').Strategy; // Импорт стратегии JwtStrategy из модуля passport-jwt. Эта стратегия используется для аутентификации с помощью JSON Web Tokens (JWT).
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const mongoose = require('mongoose');
+const ExtractJwt = require('passport-jwt').ExtractJwt; // const ExtractJwt = require('passport-jwt').ExtractJwt;: Импорт функции ExtractJwt для извлечения JWT из запросов
+const mongoose = require('mongoose'); // Импорт библиотеки Mongoose, которая используется для работы с базой данных MongoDB.
 
 const keys = require('./keys');
 const { EMAIL_PROVIDER } = require('../constants');
 
 const { google, facebook } = keys;
 
-const User = mongoose.model('User');
+const User = mongoose.model('User'); // Создание модели User с использованием Mongoose.
 const secret = keys.jwt.secret;
 
 const opts = {};
